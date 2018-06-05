@@ -1,0 +1,95 @@
+public class Numbers{
+
+    Numbers next;
+    Numbers prev;
+    String name;
+    
+    public Numbers(Numbers next, Numbers prev, String name) {
+        
+        this.next = next;
+        this.prev = prev;
+        this.name = name;
+    }
+    
+    public Numbers(String name) {
+        
+        this.name = name;
+    }
+    
+    public Numbers(Numbers prev, String name) {
+        
+        this.prev = prev;
+        prev.setNext(this);
+        this.name = name;
+    }
+    
+    public void delete() {
+        
+        if (next != null && prev != null) {
+            
+            next.setPrev(prev);
+            prev.setNext(next);
+        }
+        else if (next == null && prev != null) {
+            
+            prev.setNext(null);
+        }
+        else if (next != null && prev == null) {
+            
+            next.setPrev(null);
+        }
+    }
+    
+    public void setNext(Numbers next) {
+        
+        this.next = next;
+    }
+    
+    public void setPrev(Numbers prev) {
+        
+        this.prev = prev;
+    }
+    
+    public String getName() {
+        
+        return name;
+    }
+    
+    public String getNext() {
+        
+        if (next != null) {
+            return next.getName();
+        }
+        else 
+            return "No next element";
+    }
+    
+    public String getPrev() {
+        
+        if (prev != null) {
+            return prev.getName();
+        }
+        else 
+            return "No previous element";
+    }
+    
+}
+
+
+
+public class Main{
+
+     public static void main(String []args){
+         
+        Numbers first = new Numbers("1");
+        Numbers second = new Numbers(first, "2");
+        Numbers third = new Numbers(second, "3");
+        
+        first.delete();
+        
+        System.out.print("\n" + second.getPrev());
+        System.out.print("\n" + second.getNext());
+        System.out.print("\n");
+     
+     }
+}
